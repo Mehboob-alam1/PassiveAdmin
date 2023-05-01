@@ -26,5 +26,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, AddPackagesActivity.class));
 
         });
+
+        binding.cardUsers.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this,AllUsersActivity.class));
+
+        });
     }
 }

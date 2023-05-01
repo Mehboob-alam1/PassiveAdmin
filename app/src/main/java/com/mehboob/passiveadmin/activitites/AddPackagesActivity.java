@@ -10,8 +10,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mehboob.passiveadmin.databinding.ActivityAddPackagesBinding;
 import com.mehboob.passiveadmin.models.Packages;
 
@@ -25,6 +28,11 @@ public class AddPackagesActivity extends AppCompatActivity {
         binding = ActivityAddPackagesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         databaseReference = FirebaseDatabase.getInstance().getReference("Packages");
+
+
+        fetchBasicPackage();
+        fetchStandardPackage();
+        fetchPremium();
         binding.imgBack.setOnClickListener(v -> {
             finish();
         });
@@ -97,18 +105,105 @@ public class AddPackagesActivity extends AppCompatActivity {
         });
     }
 
+    private void fetchPremium() {
+        databaseReference.child("Premium").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Packages packages = snapshot.getValue(Packages.class);
+                    binding.etPremiumProfitPercentage.setText(packages.getProfit());
+                    if (packages.getPackageType().equals("daily"))
+                        binding.radioPremiumDaily.setChecked(true);
+                    else
+                        binding.radioPremiumWeekly.setChecked(true);
+                    binding.etPremiumStartRange.setText(packages.getStartRange());
+                    binding.etPremiumLastRange.setText(packages.getLastRange());
+
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void fetchStandardPackage() {
+        databaseReference.child("Standard").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Packages packages = snapshot.getValue(Packages.class);
+                    binding.etStandardProfitPercentage.setText(packages.getProfit());
+                    if (packages.getPackageType().equals("daily"))
+                        binding.radioStandardDaily.setChecked(true);
+                    else
+                        binding.radioStandardWeekly.setChecked(true);
+                    binding.etStandardStartRange.setText(packages.getStartRange());
+                    binding.etStandardLastRange.setText(packages.getLastRange());
+
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void fetchBasicPackage() {
+        databaseReference.child("Basic").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Packages packages = snapshot.getValue(Packages.class);
+                    binding.etBasicProfitPercentage.setText(packages.getProfit());
+                    if (packages.getPackageType().equals("daily"))
+                        binding.radioBasicDaily.setChecked(true);
+                    else
+                        binding.radioBasicWeekly.setChecked(true);
+                    binding.etBasicStartRange.setText(packages.getStartRange());
+                    binding.etBasicLastRange.setText(packages.getLastRange());
+
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void uploadPremiumPackage(String profit, String type, String startPrice, String endRate) {
         binding.textAddPremium.setVisibility(View.INVISIBLE);
         binding.progressAddPremium.setVisibility(View.VISIBLE);
         Packages packages = new Packages(profit, type, startPrice, endRate);
         databaseReference.child("Premium").setValue(packages)
                 .addOnCompleteListener(task -> {
-                    binding.textAddPremium.setVisibility(View.VISIBLE);
-                    binding.progressAddPremium.setVisibility(View.INVISIBLE);
-                    Toast.makeText(this, "Premium package added", Toast.LENGTH_SHORT).show();
+                    if (task.isComplete() && task.isSuccessful()) {
+                        binding.textAddPremium.setVisibility(View.VISIBLE);
+                        binding.progressAddPremium.setVisibility(View.INVISIBLE);
+                        Toast.makeText(this, "Premium package added", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        binding.textAddPremium.setVisibility(View.VISIBLE);
+                        binding.progressAddPremium.setVisibility(View.INVISIBLE);
+                    }
+
                 }).addOnFailureListener(e -> {
                     binding.textAddPremium.setVisibility(View.VISIBLE);
                     binding.progressAddPremium.setVisibility(View.INVISIBLE);
+
                 });
     }
 
@@ -118,9 +213,16 @@ public class AddPackagesActivity extends AppCompatActivity {
         Packages packages = new Packages(profit, type, startPrice, endRate);
         databaseReference.child("Standard").setValue(packages)
                 .addOnCompleteListener(task -> {
-                    binding.textAddStandard.setVisibility(View.VISIBLE);
-                    binding.progressAddStandard.setVisibility(View.INVISIBLE);
-                    Toast.makeText(this, "Standard package added", Toast.LENGTH_SHORT).show();
+                    if (task.isComplete() && task.isSuccessful()) {
+                        binding.textAddStandard.setVisibility(View.VISIBLE);
+                        binding.progressAddStandard.setVisibility(View.INVISIBLE);
+                        Toast.makeText(this, "Standard package added", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        binding.textAddStandard.setVisibility(View.VISIBLE);
+                        binding.progressAddStandard.setVisibility(View.INVISIBLE);
+                    }
                 }).addOnFailureListener(e -> {
                     binding.textAddStandard.setVisibility(View.VISIBLE);
                     binding.progressAddStandard.setVisibility(View.INVISIBLE);
@@ -134,9 +236,16 @@ public class AddPackagesActivity extends AppCompatActivity {
 
         databaseReference.child("Basic").setValue(packages)
                 .addOnCompleteListener(task -> {
-                    binding.textAddBasic.setVisibility(View.VISIBLE);
-                    binding.progressAddBasic.setVisibility(View.INVISIBLE);
-                    Toast.makeText(this, "Basic package added", Toast.LENGTH_SHORT).show();
+                    if (task.isComplete() && task.isSuccessful()) {
+                        binding.textAddBasic.setVisibility(View.VISIBLE);
+                        binding.progressAddBasic.setVisibility(View.INVISIBLE);
+                        Toast.makeText(this, "Basic package added", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        binding.textAddBasic.setVisibility(View.VISIBLE);
+                        binding.progressAddBasic.setVisibility(View.INVISIBLE);
+                    }
                 }).addOnFailureListener(e -> {
                     binding.textAddBasic.setVisibility(View.VISIBLE);
                     binding.progressAddBasic.setVisibility(View.INVISIBLE);
