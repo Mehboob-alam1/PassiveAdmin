@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.mehboob.passiveadmin.R;
+import com.mehboob.passiveadmin.activitites.UserDepositsActivity;
 import com.mehboob.passiveadmin.activitites.UserDetailActivity;
 import com.mehboob.passiveadmin.models.User;
 
@@ -23,11 +24,12 @@ import java.util.ArrayList;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
     private Context context;
     private ArrayList<User> list;
+    private String whichActivity;
 
-
-    public UserAdapter(Context context, ArrayList<User> list) {
+    public UserAdapter(Context context, ArrayList<User> list, String whichActivity) {
         this.context = context;
         this.list = list;
+        this.whichActivity = whichActivity;
     }
 
     @NonNull
@@ -53,14 +55,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
 
         holder.txtName.setText(user.getFirst_name() + " " + user.getSur_name());
         holder.txtContact.setText(user.getPhone_number());
+        if (whichActivity.equals("All")) {
+            Gson gson = new Gson();
+            String userData = gson.toJson(user);
+            holder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, UserDetailActivity.class);
+                intent.putExtra("user", userData);
+                context.startActivity(intent);
+            });
+        } else {
+            holder.itemView.setOnClickListener(v -> {
 
-        Gson gson = new Gson();
-        String userData = gson.toJson(user);
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, UserDetailActivity.class);
-            intent.putExtra("user", userData);
-            context.startActivity(intent);
-        });
+                Intent i = new Intent(context, UserDepositsActivity.class);
+
+                i.putExtra("uid",user.getUser_id());
+                context.startActivity(i);
+
+            });
+        }
     }
 
     @Override

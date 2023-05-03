@@ -63,7 +63,7 @@ public class AllUsersActivity extends AppCompatActivity {
                                 user.getCnic_back(), user.isBlock()));
 
                     }
-                    adapter = new UserAdapter(AllUsersActivity.this,listUser);
+                    adapter = new UserAdapter(AllUsersActivity.this,listUser,"All");
                     binding.recyclerUser.setLayoutManager(new LinearLayoutManager(AllUsersActivity.this));
                     binding.recyclerUser.setAdapter(adapter);
 

@@ -31,5 +31,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,AllUsersActivity.class));
 
         });
+
+
+        binding.cardDepositRequest.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this,DepositsActivity.class));
+        });
     }
 }

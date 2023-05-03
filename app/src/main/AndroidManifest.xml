@@ -13,6 +13,31 @@
         android:theme="@style/Theme.PassiveAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".activitites.UserDepositsActivity"
+            android:exported="false"
+            android:theme="@style/noactiondisplay">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".activitites.DepositDetailsActivity"
+            android:exported="false"
+            android:theme="@style/noactiondisplay">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activitites.DepositsActivity"
+            android:exported="false"
+            android:theme="@style/noactiondisplay">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activitites.UserDetailActivity"
             android:exported="false"
             android:theme="@style/noactiondisplay">

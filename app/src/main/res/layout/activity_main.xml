@@ -144,7 +144,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardPaymentRequest"
+        android:id="@+id/cardDepositRequest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -173,7 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Withdraw Requests"
+                android:text="Deposits Requests"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
