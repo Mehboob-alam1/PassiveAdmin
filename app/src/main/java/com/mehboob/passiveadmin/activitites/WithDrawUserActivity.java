@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,43 +14,34 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mehboob.passiveadmin.adapters.UserAdapter;
-import com.mehboob.passiveadmin.databinding.ActivityDepositsBinding;
+import com.mehboob.passiveadmin.databinding.ActivityWithDrawUserBinding;
 import com.mehboob.passiveadmin.models.User;
 
 import java.util.ArrayList;
 
-public class DepositsActivity extends AppCompatActivity {
-    private ActivityDepositsBinding binding;
+public class WithDrawUserActivity extends AppCompatActivity {
+private ActivityWithDrawUserBinding binding;
     private UserAdapter adapter;
     private ArrayList<User> users;
     private DatabaseReference userRef;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityDepositsBinding.inflate(getLayoutInflater());
+        binding=ActivityWithDrawUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         users = new ArrayList<>();
-
-        fetchDepositedUser();
-
-
-
-
-
+        fetchUsers();
     }
 
-    private void fetchDepositedUser() {
+    private void fetchUsers() {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 users.clear();
                 if (snapshot.exists()) {
-                    binding.recyclerDepositUser.setVisibility(View.VISIBLE);
-                    binding.txtNoDeposit.setVisibility(View.GONE);
+
 
 
                     for (DataSnapshot snap : snapshot.getChildren()) {
@@ -60,20 +51,18 @@ public class DepositsActivity extends AppCompatActivity {
                                 user.getUser_id(), user.getUser_image(), user.getCnic_front(),
                                 user.getCnic_back(), user.isBlock()));
                     }
-                    adapter = new UserAdapter(DepositsActivity.this, users, "Dep");
-                    binding.recyclerDepositUser.setLayoutManager(new LinearLayoutManager(DepositsActivity.this));
-                    binding.recyclerDepositUser.setAdapter(adapter);
+                    adapter = new UserAdapter(WithDrawUserActivity.this, users, "wit");
+                    binding.recyclerWithdrawUser.setLayoutManager(new LinearLayoutManager(WithDrawUserActivity.this));
+                    binding.recyclerWithdrawUser.setAdapter(adapter);
                 } else {
-                    binding.recyclerDepositUser.setVisibility(View.GONE);
-                    binding.txtNoDeposit.setVisibility(View.VISIBLE);
+                    Toast.makeText(WithDrawUserActivity.this, "No users", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                binding.recyclerDepositUser.setVisibility(View.GONE);
-                binding.txtNoDeposit.setVisibility(View.VISIBLE);
+                Toast.makeText(WithDrawUserActivity.this, ""+ error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

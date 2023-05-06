@@ -13,52 +13,54 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mehboob.passiveadmin.adapters.DepositAdapter;
-import com.mehboob.passiveadmin.databinding.ActivityUserDepositsBinding;
+import com.mehboob.passiveadmin.adapters.WithDrawAdapter;
+import com.mehboob.passiveadmin.databinding.ActivityUserWithdrawBinding;
 import com.mehboob.passiveadmin.models.Deposit;
+import com.mehboob.passiveadmin.models.Withdraw;
 
 import java.util.ArrayList;
 
-public class UserDepositsActivity extends AppCompatActivity {
-    private ActivityUserDepositsBinding binding;
-    private String userId;
+public class UserWithdrawActivity extends AppCompatActivity {
+    private ActivityUserWithdrawBinding binding;
+    private String withDrawUser;
     private DatabaseReference databaseReference;
-    private ArrayList<Deposit> deposits;
-    private DepositAdapter adapter;
+    private ArrayList<Withdraw> withdraws;
+    private WithDrawAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityUserDepositsBinding.inflate(getLayoutInflater());
+        binding = ActivityUserWithdrawBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        userId = getIntent().getStringExtra("uid");
-        databaseReference = FirebaseDatabase.getInstance().getReference("Deposit");
-        deposits = new ArrayList<>();
 
-        fetchUserDeposits();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Withdraws");
+        withDrawUser = getIntent().getStringExtra("uid");
+        withdraws = new ArrayList<>();
+
+        fetchUserWithDraws();
 
 
     }
 
-    private void fetchUserDeposits() {
-        databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
+    private void fetchUserWithDraws() {
+        databaseReference.child(withDrawUser).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     binding.txtNoDeposit.setVisibility(View.GONE);
                     binding.recyclerDeposits.setVisibility(View.VISIBLE);
 
-                    deposits.clear();
-                    for (DataSnapshot snap : snapshot.getChildren()) {
+                    withdraws.clear();
 
-                        Deposit deposit = snap.getValue(Deposit.class);
-                        deposits.add(new Deposit(deposit.getScreenShot(), deposit.getUserId(), deposit.getTimeStamp(),
-                                deposit.getDepositBalance(), deposit.isApproved(),
-                                deposit.getPushId(), deposit.getTotalBalance(),
-                                deposit.getDepositAccount()));
 
-                    }
-                    adapter = new DepositAdapter(UserDepositsActivity.this, deposits);
-                    binding.recyclerDeposits.setLayoutManager(new LinearLayoutManager(UserDepositsActivity.this));
+                        Withdraw withdraw = snapshot.getValue(Withdraw.class);
+                        withdraws.add(new Withdraw(withdraw.getUserId(),withdraw.getPushId(),withdraw.isVerified(),
+                                withdraw.getWithDrawAmount(),withdraw.getWithDrawAccountNumber(),withdraw.getWithDrawAccountName(),
+                                withdraw.getTimeStamp()));
+
+
+                    adapter = new WithDrawAdapter(UserWithdrawActivity.this, withdraws);
+                    binding.recyclerDeposits.setLayoutManager(new LinearLayoutManager(UserWithdrawActivity.this));
                     binding.recyclerDeposits.setAdapter(adapter);
 
                 } else {

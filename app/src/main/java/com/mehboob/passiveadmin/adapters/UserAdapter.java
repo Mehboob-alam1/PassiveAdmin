@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.mehboob.passiveadmin.R;
 import com.mehboob.passiveadmin.activitites.UserDepositsActivity;
 import com.mehboob.passiveadmin.activitites.UserDetailActivity;
+import com.mehboob.passiveadmin.activitites.UserWithdrawActivity;
 import com.mehboob.passiveadmin.models.User;
 
 import java.util.ArrayList;
@@ -63,10 +64,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
                 intent.putExtra("user", userData);
                 context.startActivity(intent);
             });
-        } else {
+        } else if (whichActivity.equals("Dep")){
             holder.itemView.setOnClickListener(v -> {
 
                 Intent i = new Intent(context, UserDepositsActivity.class);
+
+                i.putExtra("uid",user.getUser_id());
+                context.startActivity(i);
+
+            });
+        }else{
+            holder.itemView.setOnClickListener(v -> {
+
+                Intent i = new Intent(context, UserWithdrawActivity.class);
 
                 i.putExtra("uid",user.getUser_id());
                 context.startActivity(i);
