@@ -13,6 +13,22 @@
         android:theme="@style/Theme.PassiveAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".activitites.ProfitAddtionActivity"
+            android:exported="false"
+            android:theme="@style/noactiondisplay">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activitites.AddProfitUserActivity"
+            android:exported="false"
+            android:theme="@style/noactiondisplay">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activitites.WithDrawDetailsActivity"
             android:exported="false"
             android:theme="@style/noactiondisplay">

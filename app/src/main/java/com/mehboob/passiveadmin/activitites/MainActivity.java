@@ -40,5 +40,9 @@ public class MainActivity extends AppCompatActivity {
         binding.cardWithDrawRequest.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this,WithDrawUserActivity.class));
         });
+
+        binding.cardAddProfit.setOnClickListener(v -> {
+startActivity(new Intent(MainActivity.this,AddProfitUserActivity.class));
+        });
     }
 }

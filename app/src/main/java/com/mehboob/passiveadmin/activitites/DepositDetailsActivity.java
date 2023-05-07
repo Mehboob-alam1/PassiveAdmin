@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mehboob.passiveadmin.R;
 import com.mehboob.passiveadmin.databinding.ActivityDepositDetailsBinding;
+import com.mehboob.passiveadmin.models.Balance;
 import com.mehboob.passiveadmin.models.Deposit;
 
 import java.lang.reflect.Type;
@@ -165,12 +166,14 @@ public class DepositDetailsActivity extends AppCompatActivity {
                     if (task.isComplete() && task.isSuccessful()) {
 
 
+
                         userDeposit.child(deposit.getUserId())
                                 .child(deposit.getPushId())
                                 .child("depositBalance")
                                 .setValue(balance)
                                 .addOnCompleteListener(task1 -> {
                                     if (task1.isComplete() && task1.isSuccessful()) {
+                                      //  Balance userBalance = new Balance(balance,deposit.getUserId());
                                         userTotalBalanceRef.child(deposit.getUserId())
                                                 .child("totalBalance")
                                                 .setValue(String.valueOf(Integer.parseInt(userTotalBalance) + Integer.parseInt(balance)));

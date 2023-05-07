@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.mehboob.passiveadmin.R;
+import com.mehboob.passiveadmin.activitites.ProfitAddtionActivity;
 import com.mehboob.passiveadmin.activitites.UserDepositsActivity;
 import com.mehboob.passiveadmin.activitites.UserDetailActivity;
 import com.mehboob.passiveadmin.activitites.UserWithdrawActivity;
@@ -73,10 +74,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
                 context.startActivity(i);
 
             });
-        }else{
+        }else if (whichActivity.equals("wit")){
             holder.itemView.setOnClickListener(v -> {
 
                 Intent i = new Intent(context, UserWithdrawActivity.class);
+
+                i.putExtra("uid",user.getUser_id());
+                context.startActivity(i);
+
+            });
+        }else{
+            holder.itemView.setOnClickListener(v -> {
+
+                Intent i = new Intent(context, ProfitAddtionActivity.class);
 
                 i.putExtra("uid",user.getUser_id());
                 context.startActivity(i);
