@@ -42,6 +42,7 @@ private DatabaseReference withDrawRef;
 
         binding.txtWithdrawThrough.setText(withdraw.getWithDrawAccountName());
         binding.txtBalanceWithdraw.setText(withdraw.getWithDrawAmount());
+binding.txtAccountNumberWithdraw.setText(withdraw.getWithDrawAccountNumber());
         Date date = new Date(Long.parseLong(withdraw.getTimeStamp()));
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = dateFormat.format(date);

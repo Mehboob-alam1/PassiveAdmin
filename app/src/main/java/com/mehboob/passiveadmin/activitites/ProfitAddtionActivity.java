@@ -75,10 +75,12 @@ public class ProfitAddtionActivity extends AppCompatActivity {
                             } else {
                                 binding.txtYes.setVisibility(View.GONE);
                                 binding.txtNo.setVisibility(View.VISIBLE);
+                                binding.btnAdd.setVisibility(View.GONE);
                             }
                         }else{
                             binding.txtYes.setVisibility(View.GONE);
                             binding.txtNo.setVisibility(View.VISIBLE);
+                            binding.btnAdd.setVisibility(View.GONE);
                         }
 
                     }
