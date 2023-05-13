@@ -48,6 +48,7 @@ public class AddAccountsActivity extends AppCompatActivity {
                     binding.etJazzCashAccountName.setText(accounts.getJazzAccountName());
                     binding.etEasyPaisaAccountName.setText(accounts.getEasyAccountName());
                     binding.etEasyPaisaAccountNumber.setText(accounts.getEasyAccountNumber());
+                    binding.etBankName.setText(accounts.getBankName());
                 }
             }
 
@@ -73,16 +74,20 @@ public class AddAccountsActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter Easy Paisa account number", Toast.LENGTH_SHORT).show();
         else if (binding.etEasyPaisaAccountName.getText().toString().isEmpty())
             Toast.makeText(this, "Enter Easy Paisa account name", Toast.LENGTH_SHORT).show();
+        else if (binding.etBankName.getText().toString().isEmpty())
+            Toast.makeText(this, "Enter bank name", Toast.LENGTH_SHORT).show();
+
         else
             addAccount(binding.etBankAccountNumber.getText().toString(), binding.etBankAccountName.getText().toString(),
+                    binding.etBankName.getText().toString(),
                     binding.etJazzCashAccountNumber.getText().toString(), binding.etJazzCashAccountName.getText().toString(),
                     binding.etEasyPaisaAccountNumber.getText().toString(), binding.etEasyPaisaAccountName.getText().toString());
     }
 
-    private void addAccount(String bankAccountNumber, String bankAccountName, String jazzAccountNumber, String jazzAccountName, String easyAccount, String easyName) {
+    private void addAccount(String bankAccountNumber, String bankAccountName, String bankName,String jazzAccountNumber, String jazzAccountName, String easyAccount, String easyName) {
         binding.textAddDetails.setVisibility(View.INVISIBLE);
         binding.progressAddDetails.setVisibility(View.VISIBLE);
-        Accounts accounts = new Accounts(bankAccountNumber, bankAccountName, jazzAccountNumber, jazzAccountName, easyAccount, easyName);
+        Accounts accounts = new Accounts(bankAccountNumber, bankAccountName,bankName, jazzAccountNumber, jazzAccountName, easyAccount, easyName);
         databaseReference.setValue(accounts).addOnCompleteListener(task -> {
             if (task.isComplete() && task.isSuccessful()) {
                 binding.textAddDetails.setVisibility(View.VISIBLE);

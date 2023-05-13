@@ -3,6 +3,7 @@ package com.mehboob.passiveadmin.models;
 public class Accounts {
     private String bankAccountNumber;
     private String bankAccountName;
+    private String bankName;
     private String jazzAccountNumber;
     private String jazzAccountName;
     private String easyAccountNumber;
@@ -12,15 +13,24 @@ public class Accounts {
     public Accounts() {
     }
 
-    public Accounts(String bankAccountNumber, String bankAccountName, String jazzAccountNumber, String jazzAccountName, String easyAccountNumber, String easyAccountName) {
+
+    public Accounts(String bankAccountNumber, String bankAccountName, String bankName, String jazzAccountNumber, String jazzAccountName, String easyAccountNumber, String easyAccountName) {
         this.bankAccountNumber = bankAccountNumber;
         this.bankAccountName = bankAccountName;
+        this.bankName = bankName;
         this.jazzAccountNumber = jazzAccountNumber;
         this.jazzAccountName = jazzAccountName;
         this.easyAccountNumber = easyAccountNumber;
         this.easyAccountName = easyAccountName;
     }
 
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
 
     public String getBankAccountNumber() {
         return bankAccountNumber;

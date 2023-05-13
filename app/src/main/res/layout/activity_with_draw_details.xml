@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/edittext_bg"
-    tools:context=".activitites.DepositDetailsActivity" >
+    tools:context=".activitites.WithDrawDetailsActivity" >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -141,18 +141,34 @@
                 android:text="Withdraw  account number"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_icons"
+    android:padding="12dp"
+    android:layout_height="wrap_content" >
+    <TextView
+        android:id="@+id/txtAccountNumberWithdraw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+android:layout_weight="3"
 
-            <TextView
-                android:id="@+id/txtAccountNumberWithdraw"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/bg_icons"
-                android:padding="16dp"
-                android:text=""
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
+        android:text=""
+        android:textAlignment="center"
+
+
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+    <ImageView
+        android:layout_width="25dp"
+        android:id="@+id/img_CopyAccountNumber"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_copy"
+        android:layout_gravity="center_vertical"/>
+
+
+</LinearLayout>
+
 
 
             <TextView

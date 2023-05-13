@@ -73,6 +73,8 @@ public class DepositDetailsActivity extends AppCompatActivity {
 
         }
 
+
+
         binding.txtDepositThrough.setText(deposit.getDepositAccount());
         binding.txtBalanceDeposit.setText(deposit.getDepositBalance());
         binding.txtTotalBalance.setText(deposit.getTotalBalance());

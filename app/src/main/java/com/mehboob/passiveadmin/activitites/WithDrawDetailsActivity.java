@@ -2,6 +2,9 @@ package com.mehboob.passiveadmin.activitites;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -38,6 +41,10 @@ private DatabaseReference withDrawRef;
             finish();
         });
 
+        binding.imgCopyAccountNumber.setOnClickListener(v -> {
+            copyTextToClipboard(binding.txtAccountNumberWithdraw.getText().toString());
+        });
+
 
         binding.txtWithdrawThrough.setText(withdraw.getWithDrawAccountName());
         binding.txtBalanceWithdraw.setText(withdraw.getWithDrawAmount());
@@ -71,6 +78,23 @@ verifyPayments();
         });
 
 
+    }
+
+    private void copyTextToClipboard(String text) {
+        // Get the text from the TextView
+
+
+        // Get the ClipboardManager
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+        // Create a new ClipData object to store the text
+        ClipData clipData = ClipData.newPlainText("label", text);
+
+        // Set the ClipData object as the clipboard data
+        clipboardManager.setPrimaryClip(clipData);
+
+        // Show a toast message to indicate that the text has been copied
+        Toast.makeText(this, "Text copied to clipboard " + text, Toast.LENGTH_SHORT).show();
     }
     private void verifyPayments() {
         withDrawRef.child(withdraw.getUserId())
