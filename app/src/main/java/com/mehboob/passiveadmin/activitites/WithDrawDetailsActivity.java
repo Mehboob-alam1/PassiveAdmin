@@ -11,7 +11,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mehboob.passiveadmin.databinding.ActivityWithDrawDetailsBinding;
-import com.mehboob.passiveadmin.models.Deposit;
 import com.mehboob.passiveadmin.models.Withdraw;
 
 import java.lang.reflect.Type;
@@ -48,14 +47,16 @@ binding.txtAccountNumberWithdraw.setText(withdraw.getWithDrawAccountNumber());
         String dateString = dateFormat.format(date);
         binding.txtDateWithdraw.setText(dateString);
 
+        binding.txtWithdrawThroughAccount.setText(withdraw.getAccountWithDraw());
+
 
         if (withdraw.isVerified()){
             binding.txtVerified.setVisibility(View.VISIBLE);
             binding.txtNotVerified.setVisibility(View.GONE);
             binding.btnVerifyWithDraw.setText("Approved");
         }else {
-            binding.txtVerified.setVisibility(View.VISIBLE);
-            binding.txtNotVerified.setVisibility(View.GONE);
+            binding.txtNotVerified.setVisibility(View.VISIBLE);
+            binding.txtVerified.setVisibility(View.GONE);
         }
 
 
@@ -106,8 +107,8 @@ verifyPayments();
             binding.txtNotVerified.setVisibility(View.GONE);
             binding.btnVerifyWithDraw.setText("Approved");
         }else {
-            binding.txtVerified.setVisibility(View.VISIBLE);
-            binding.txtNotVerified.setVisibility(View.GONE);
+            binding.txtNotVerified.setVisibility(View.VISIBLE);
+            binding.txtVerified.setVisibility(View.GONE);
         }
 
     }
@@ -120,8 +121,8 @@ verifyPayments();
             binding.txtNotVerified.setVisibility(View.GONE);
             binding.btnVerifyWithDraw.setText("Approved");
         }else {
-            binding.txtVerified.setVisibility(View.VISIBLE);
-            binding.txtNotVerified.setVisibility(View.GONE);
+            binding.txtNotVerified.setVisibility(View.VISIBLE);
+            binding.txtVerified.setVisibility(View.GONE);
         }
 
     }

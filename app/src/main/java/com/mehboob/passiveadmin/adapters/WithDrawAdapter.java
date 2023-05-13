@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.mehboob.passiveadmin.R;
-import com.mehboob.passiveadmin.activitites.DepositDetailsActivity;
 import com.mehboob.passiveadmin.activitites.WithDrawDetailsActivity;
 import com.mehboob.passiveadmin.models.Withdraw;
 

@@ -12,10 +12,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mehboob.passiveadmin.adapters.DepositAdapter;
 import com.mehboob.passiveadmin.adapters.WithDrawAdapter;
 import com.mehboob.passiveadmin.databinding.ActivityUserWithdrawBinding;
-import com.mehboob.passiveadmin.models.Deposit;
 import com.mehboob.passiveadmin.models.Withdraw;
 
 import java.util.ArrayList;
@@ -58,7 +56,7 @@ public class UserWithdrawActivity extends AppCompatActivity {
                         Withdraw withdraw = snapshot.getValue(Withdraw.class);
                         withdraws.add(new Withdraw(withdraw.getUserId(),withdraw.getPushId(),withdraw.isVerified(),
                                 withdraw.getWithDrawAmount(),withdraw.getWithDrawAccountNumber(),withdraw.getWithDrawAccountName(),
-                                withdraw.getTimeStamp()));
+                                withdraw.getTimeStamp(),withdraw.getAccountWithDraw()));
 
 
                     adapter = new WithDrawAdapter(UserWithdrawActivity.this, withdraws);

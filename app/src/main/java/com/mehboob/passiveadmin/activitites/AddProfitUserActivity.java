@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -16,7 +15,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.mehboob.passiveadmin.adapters.UserAdapter;
 import com.mehboob.passiveadmin.databinding.ActivityAddProfitUserBinding;
 import com.mehboob.passiveadmin.models.User;
-import com.mehboob.passiveadmin.models.Withdraw;
 
 import java.util.ArrayList;
 
