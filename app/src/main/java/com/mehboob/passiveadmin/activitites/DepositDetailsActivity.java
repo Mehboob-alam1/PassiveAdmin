@@ -1,6 +1,7 @@
 package com.mehboob.passiveadmin.activitites;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -44,6 +45,7 @@ public class DepositDetailsActivity extends AppCompatActivity {
     private DatabaseReference userDeposit, userTotalBalanceRef;
     private String balance = "";
     private String userTotalBalance;
+    String imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class DepositDetailsActivity extends AppCompatActivity {
         deposit = gson.fromJson(user, type);
 
 
+
         binding.btnBack.setOnClickListener(v -> {
             finish();
         });
@@ -66,12 +69,23 @@ public class DepositDetailsActivity extends AppCompatActivity {
         getUserTotalBalance();
 
         try {
+ imageUrl = deposit.getScreenShot();
             Glide.with(this)
                     .load(deposit.getScreenShot())
                     .into(binding.imgScreenShot);
         } catch (IllegalArgumentException e) {
 
         }
+
+
+        binding.imgScreenShot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DepositDetailsActivity.this,ImageActivity.class);
+                intent.putExtra("imageUrl", imageUrl);
+                startActivity(intent);
+            }
+        });
 
 
 
